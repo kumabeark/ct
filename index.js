@@ -17,10 +17,7 @@ const config = process.env.CONFIG
 let log;
 if (config.logWebhook.length > 25) {
   log = new Webhook(config.logWebhook);
-  log.setUsername("CatchTwo Logs");
-  log.setAvatar(
-    "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67"
-  );
+  log.setUsername("Logs");
 }
 const { exec } = require("child_process");
 
@@ -102,11 +99,11 @@ for (let i = 0; i < tokensAndGuildIds.length; i += 2) {
 
 if (process.env.REPLIT_DB_URL && (!process.env.TOKENS || !process.env.CONFIG))
   console.log(
-    `You are running on replit, please use it's secret feature, to prevent your tokens and webhook from being stolen and misused.\nCreate a secret variable called "CONFIG" for your config, and a secret variable called "TOKENS" for your tokens.`
+    `You are running on replit`
   );
 
 app.get("/", async function (req, res) {
-  res.send(`CURRENTLY RUNNING ON ${config.tokens.length} ACCOUNT(S)!`);
+  res.send(`CURRENTLY RUNNING ON ${config.tokens.length} ACCOUNTS!`);
 });
 
 app.listen(20040, async () => {
@@ -144,7 +141,7 @@ async function Login(token, Client, guildId) {
   if (!isOnBreak && !captcha) {
     client.on("ready", async () => {
       console.log(`Logged in to ` + chalk.red(client.user.tag) + `!`);
-      client.user.setStatus("invisible");
+      client.user.setStatus("dnd");
       accountCheck = client.user.username;
       spamMessages = fs
         .readFileSync(__dirname + "/messages/messages.txt", "utf-8")
@@ -193,7 +190,6 @@ async function Login(token, Client, guildId) {
               log?.send(
                 new MessageBuilder()
                   .setTitle("⏯️ ``-`` Resumed")
-                  .setURL("https://github.com/kyan0045/catchtwo")
                   .setDescription("**Account: **" + client.user.tag)
                   .setColor("#7ff889")
               );
@@ -215,7 +211,6 @@ async function Login(token, Client, guildId) {
             log?.send(
               new MessageBuilder()
                 .setTitle("⏸️ ``-`` Sleeping")
-                .setURL("https://github.com/kyan0045/catchtwo")
                 .setDescription(
                   "**Account: **" +
                     client.user.tag +
@@ -254,7 +249,7 @@ async function Login(token, Client, guildId) {
       const spamChannels = guild.channels.cache.filter(
         (channel) =>
           channel.type === "GUILD_TEXT" &&
-          channel.name.includes("spam") &&
+          channel.name.includes("pomf") &&
           channel
             .permissionsFor(guild.members.me)
             .has([
@@ -456,7 +451,7 @@ async function Login(token, Client, guildId) {
           const marketValues = marketWords[0].split(" ");
           const marketFinal = marketValues[4].split("•");
           if (link == undefined) {
-            link = "https://github.com/kyan0045/CatchTwo";
+            link = "https://github.com/";
           }
           log?.send(
             new MessageBuilder()
@@ -658,7 +653,6 @@ async function Login(token, Client, guildId) {
               log?.send(
                 new MessageBuilder()
                   .setTitle("Pokemon Caught")
-                  .setURL(link)
                   .setDescription(
                     "**Account: **" +
                       client.user.tag +
@@ -800,7 +794,6 @@ async function Login(token, Client, guildId) {
             log?.send(
               new MessageBuilder()
                 .setTitle("Leveling Completed")
-                .setURL(link)
                 .setDescription(
                   "**Account: **" +
                     client.user.tag +
@@ -863,7 +856,6 @@ async function Login(token, Client, guildId) {
               log?.send(
                 new MessageBuilder()
                   .setTitle("Leveling Completed")
-                  .setURL(link)
                   .setDescription(
                     "**Account: **" +
                       client.user.tag +
@@ -1084,16 +1076,13 @@ async function Login(token, Client, guildId) {
           }
           if (webhooks.size > 0) {
             webhook = new Webhook(webhooks?.first().url);
-            webhook.setUsername("CatchTwo");
-            webhook.setAvatar(
-              "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67"
-            );
+            webhook.setUsername("two");
           } else {
             try {
-              newWebhook = await message.channel.createWebhook("CatchTwo", {
+              newWebhook = await message.channel.createWebhook("star", {
                 avatar:
                   "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67",
-                reason: "CatchTwo Commands",
+                reason: "twothis Commands",
               });
             } catch (err) {
               if (err.code == "50013") {
@@ -1101,7 +1090,7 @@ async function Login(token, Client, guildId) {
               }
             }
             webhook = new Webhook(newWebhook);
-            webhook.setUsername("CatchTwo");
+            webhook.setUsername("star");
             webhook.setAvatar(
               "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67"
             );
@@ -1109,9 +1098,7 @@ async function Login(token, Client, guildId) {
           webhook.send(
             new MessageBuilder()
               .setText(`<@${message.author.id}>`)
-              .setTitle("CatchTwo Command Help")
-              .setFooter("©️ CatchTwo ~ @kyan0045")
-              .setURL(`https://github.com/kyan0045/CatchTwo`)
+              .setTitle("star Command Help")
               .setDescription(
                 `CatchTwo is a simple and easy to use PokéTwo selfbot, you can find available commands below.`
               )
@@ -1188,7 +1175,6 @@ async function Login(token, Client, guildId) {
           log?.send(
             new MessageBuilder()
               .setTitle("Restarting...")
-              .setURL("https://github.com/kyan0045/catchtwo")
               .setColor("#E74C3C")
           );
 
@@ -1218,16 +1204,16 @@ async function Login(token, Client, guildId) {
           }
           if (webhooks.size > 0) {
             webhook = new Webhook(webhooks?.first().url);
-            await webhook.setUsername("CatchTwo");
+            await webhook.setUsername("star");
             await webhook.setAvatar(
               "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67"
             );
           } else {
             try {
-              newWebhook = await message.channel.createWebhook("CatchTwo", {
+              newWebhook = await message.channel.createWebhook("star", {
                 avatar:
                   "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67",
-                reason: "CatchTwo Commands",
+                reason: "tothis Commands",
               });
             } catch (err) {
               if (err.code == "50013") {
@@ -1235,16 +1221,11 @@ async function Login(token, Client, guildId) {
               }
             }
             webhook = new Webhook(newWebhook);
-            webhook.setUsername("CatchTwo");
-            webhook.setAvatar(
-              "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67"
-            );
+            webhook.setUsername("star");
           }
           webhook.send(
             new MessageBuilder()
               .setText(`<@${message.author.id}> https://discord.gg/tXa2Hw5jHy`)
-              .setTitle("CatchTwo Support Server")
-              .setFooter("©️ CatchTwo ~ @kyan0045")
               .setURL(`https://discord.gg/tXa2Hw5jHy`)
               .setDescription(
                 `If you need any support, or have questions, please join our support server here.`
@@ -1264,13 +1245,13 @@ async function Login(token, Client, guildId) {
             }
             if (webhooks.size > 0) {
               webhook = new Webhook(webhooks?.first().url);
-              await webhook.setUsername("CatchTwo");
+              await webhook.setUsername("star");
               await webhook.setAvatar(
                 "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67"
               );
             } else {
               try {
-                newWebhook = await message.channel.createWebhook("CatchTwo", {
+                newWebhook = await message.channel.createWebhook("star", {
                   avatar:
                     "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67",
                   reason: "CatchTwo Commands",
@@ -1281,7 +1262,7 @@ async function Login(token, Client, guildId) {
                 }
               }
               webhook = new Webhook(newWebhook);
-              webhook.setUsername("CatchTwo");
+              webhook.setUsername("star");
               webhook.setAvatar(
                 "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67"
               );
@@ -1290,8 +1271,6 @@ async function Login(token, Client, guildId) {
               new MessageBuilder()
                 .setText(`<@${message.author.id}>`)
                 .setTitle("CatchTwo Config Help")
-                .setFooter("©️ CatchTwo ~ @kyan0045")
-                .setURL(`https://discord.gg/tXa2Hw5jHy`)
                 .setDescription(
                   `You can change properties in your config using \`\`${config.prefix}config set [property] [value]\`\`\nIf you wish to view your current config, use \`\`${config.prefix}config view\`\` instead.\n\`\`Note:\`\` Changes only take effect after the selfbot has restarted.`
                 )
@@ -1315,13 +1294,13 @@ async function Login(token, Client, guildId) {
               );
             if (webhooks.size > 0) {
               webhook = new Webhook(webhooks?.first().url);
-              await webhook.setUsername("CatchTwo");
+              await webhook.setUsername("star");
               await webhook.setAvatar(
                 "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67"
               );
             } else {
               try {
-                newWebhook = await message.channel.createWebhook("CatchTwo", {
+                newWebhook = await message.channel.createWebhook("star", {
                   avatar:
                     "https://camo.githubusercontent.com/1c34a30dc74c8cb780498c92aa4aeaa2e0bcec07a94b7a55d5377786adf43a5b/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313033333333343538363936363535323636362f313035343839363838373834323438383432322f696d6167652e706e67",
                   reason: "CatchTwo Commands",
@@ -1475,8 +1454,6 @@ async function Login(token, Client, guildId) {
               new MessageBuilder()
                 .setText(`<@${message.author.id}>`)
                 .setTitle("CatchTwo Stats")
-                .setFooter("©️ CatchTwo ~ @kyan0045")
-                .setURL(`https://discord.gg/tXa2Hw5jHy`)
                 .setDescription(`**Started:** <t:${uptime}:R>`)
                 .addField("Runtime", timeSinceStart, true)
                 .addField(" ", " ", true)
