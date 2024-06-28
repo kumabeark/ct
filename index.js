@@ -22,18 +22,6 @@ if (config.logWebhook.length > 25) {
 const { exec } = require("child_process");
 
 
-//------------------------- KEEP-ALIVE--------------------------------//
-
-if (Number(process.version.slice(1).split(".")[0]) < 8) throw new Error("Node 8.0.0 or higher is required. Update Node on your system.");
-app.get("/", (req, res) => {
-    res.status(200).send({
-        success: "true"
-    });
-});
-app.listen(process.env.PORT || 8000);
-
-//--------------------------------------------------------------//
-
 // CODE, NO NEED TO CHANGE
 
 spamMessageCount = 0;
@@ -118,10 +106,17 @@ if (process.env.REPLIT_DB_URL && (!process.env.TOKENS || !process.env.CONFIG))
 app.get("/", async function (req, res) {
   res.send(`CURRENTLY RUNNING ON ${config.tokens.length} ACCOUNTS!`);
 });
-
 app.listen(8000, async () => {
   console.log(chalk.bold.bgRed(`SERVER STATUS: ONLINE`));
 });
+/*
+app.get("/", (req, res) => {
+    res.status(200).send({
+        success: "true"
+    });
+});
+app.listen(process.env.PORT || 8000);
+*/
 
 async function Login(token, Client, guildId) {
   if (!token) {
